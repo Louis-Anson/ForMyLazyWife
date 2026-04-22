@@ -10,6 +10,8 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Privacy First](https://img.shields.io/badge/Privacy-Local%20Only-green)]()
 
+[![Status: Planning](https://img.shields.io/badge/Status-Planning-orange)]()
+
 ## 📖 项目起源
 
 老婆有一天刷手机，说想要一个能听懂人话的管家，对着微信说句话就能安排家务、管冰箱、记账单。  
@@ -38,3 +40,8 @@ flowchart LR
     HA --> Devices[空调/洗衣机/门锁]
     HA --> Health[健康预测<br>自研 LSTM 模型]
 ```
+
+## 🗓️ 需求列表
+
+[![Project Status](https://img.shields.io/badge/Status-规划中-orange?style=flat-square)]()
+
