@@ -1,0 +1,13 @@
+- platform: rest
+  name: 下次经期预测
+  resource: http://period-predictor:5000/predict
+  method: POST
+  payload: '{"last_period_start": "{{ states("input_datetime.last_period_start") }}", "cycle_history": [28,29,27,30,28,29]}'
+  headers:
+    Content-Type: application/json
+  scan_interval: 86400
+  json_attributes_path: "$"
+  json_attributes:
+    - next_period_start
+    - predicted_cycle_length
+  value_template: "{{ value_json.next_period_start }}"

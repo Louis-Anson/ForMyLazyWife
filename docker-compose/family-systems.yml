@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  donetick:
+    image: donetick/donetick:latest
+    container_name: donetick
+    restart: unless-stopped
+    volumes:
+      - /docker/donetick/data:/data
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  grocy:
+    image: linuxserver/grocy:latest
+    container_name: grocy
+    restart: unless-stopped
+    volumes:
+      - /docker/grocy/data:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  tandoor:
+    image: vabene1111/recipes:latest
+    container_name: tandoor
+    restart: unless-stopped
+    volumes:
+      - /docker/tandoor/static:/opt/recipes/staticfiles
+      - /docker/tandoor/media:/opt/recipes/mediafiles
+    environment:
+      - SECRET_KEY=${TANDOOR_SECRET}
+      - DB_ENGINE=django.db.backends.sqlite3
+      - TZ=Asia/Shanghai
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  ezbookkeeping:
+    image: mayswind/ezbookkeeping:latest
+    container_name: ezbookkeeping
+    restart: unless-stopped
+    volumes:
+      - /docker/ezbookkeeping/data:/var/lib/ezbookkeeping
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  trek:
+    image: mauriceboe/trek:2.7.0
+    container_name: trek
+    restart: unless-stopped
+    volumes:
+      - /docker/trek/data:/app/data
+    environment:
+      - JWT_SECRET=${TREK_JWT_SECRET}
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  traefik-public:
+    external: true

@@ -1,0 +1,16 @@
+homeassistant:
+  name: 家
+  latitude: 31.82
+  longitude: 117.23
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.0/24
+
+input_datetime: !include input_datetime.yaml
+sensor: !include sensors.yaml
+automation: !include automations.yaml
+
+recorder:
+  db_url: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/ha

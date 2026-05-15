@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    volumes:
+      - ../openclaw/config:/app/config
+      - ../openclaw/data:/app/data
+      - ../openclaw/skills:/app/skills
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - OPENCLAW_GATEWAY_PORT=3000
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openclaw.rule=Host(`openclaw.relax.mycloudnas.com`)"
+      - "traefik.http.routers.openclaw.entrypoints=websecure"
+      - "traefik.http.routers.openclaw.tls.certresolver=letsencrypt"
+      - "traefik.http.services.openclaw.loadbalancer.server.port=3000"
+
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    restart: unless-stopped
+    volumes:
+      - /docker/ntfy/cache:/var/cache/ntfy
+      - /docker/ntfy/etc:/etc/ntfy
+    command: serve
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ntfy.rule=Host(`ntfy.relax.mycloudnas.com`)"
+      - "traefik.http.routers.ntfy.entrypoints=websecure"
+      - "traefik.http.routers.ntfy.tls.certresolver=letsencrypt"
+      - "traefik.http.services.ntfy.loadbalancer.server.port=80"
+
+  postgres:
+    image: postgres:18.3-alpine
+    container_name: postgres
+    restart: unless-stopped
+    volumes:
+      - /docker/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  pgbouncer:
+    image: bitnami/pgbouncer:latest
+    container_name: pgbouncer
+    restart: unless-stopped
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=${DB_USER}
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+      - PGBOUNCER_DATABASE=*
+    depends_on:
+      - postgres
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+  new-api:
+    image: calciumion/new-api:latest
+    container_name: new-api
+    restart: unless-stopped
+    volumes:
+      - /docker/new-api/data:/data
+      - /docker/new-api/logs:/app/logs
+    environment:
+      - TZ=Asia/Shanghai
+      - SQL_DSN=${NEWAPI_DB_USER}:${NEWAPI_DB_PASS}@tcp(${NEWAPI_DB_HOST})/${NEWAPI_DB_NAME}?parseTime=true
+      - REDIS_CONN_STRING=redis://redis
+      - SESSION_SECRET=${NEWAPI_SESSION_SECRET}
+    depends_on:
+      - redis
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.new-api.rule=Host(`newapi.relax.mycloudnas.com`)"
+      - "traefik.http.routers.new-api.entrypoints=websecure"
+      - "traefik.http.routers.new-api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.new-api.loadbalancer.server.port=3000"
+
+  redis:
+    image: redis:alpine
+    container_name: new-api-redis
+    restart: unless-stopped
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=false"
+
+networks:
+  traefik-public:
+    external: true
