@@ -39,7 +39,7 @@
 
 ## 📁 仓库目录结构
 ```tree
-Project-Baymax/
+ForMyLazyWife/
 ├── README.md # 项目总览（本文件）
 ├── LICENSE # 开源协议
 ├── .gitignore
