@@ -1,8 +1,10 @@
-# ForMyLazyWife
+# Ai Jia S
+
 🏠 一个跑在 NAS 上的家庭AI管家：微信一句话指挥家务、管理冰箱库存、自动记账，还偷偷记住了她的生理期。全本地部署，数据主权归家。
 
-# 🏠 ForMyLazyWife / 家务OS
+# 🏠 AiJiaS / 家务OS
 
+> *"用代码写一封给家的情书。S for Sweet，S for Her."*
 > *"代码是冷的，但日子是热的。用一台 NAS，给老婆搭个隐形的家庭管家。"*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -97,5 +99,9 @@ ForMyLazyWife/
 
 ```
 
-
+## 🚀 快速开始
+```bash
+git clone https://github.com/你的用户名/AiJiaS.git
+cd AiJiaS
+...
 
