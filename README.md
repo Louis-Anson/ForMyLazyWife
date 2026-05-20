@@ -26,6 +26,7 @@
 - 🗓️ **家庭任务系统**：基于 Donetick，自动编排家务，完成情况实时通知。
 - 🥦 **食物状态管理**：基于 Grocy，记录食材采购/过期时间，临期自动提醒，还能根据库存推荐菜谱。
 - 💰 **家用记账**：基于 ezBookkeeping，支持手动/微信触发记账，分类统计一目了然。
+- 👕 **家庭资产管理**：基于 Homebox，管理衣物、鞋帽、床上用品等生活物品的购买时间、使用状态和清洗维护周期。
 - 🎵 **媒体服务**：Immich 管理全家照片，Navidrome 搭建私人音乐库。
 - 🌡️ **智能家居中枢**：Home Assistant 统一接入格力空调、美的洗衣机等设备。
 - ❤️ **健康关怀（隐藏功能）**：接入 Apple Watch 数据，AI 预测生理期，提前提醒煮五红汤、苹果黄芪水。
@@ -41,7 +42,7 @@
 
 ## 📁 仓库目录结构
 ```tree
-ForMyLazyWife/
+AiJiaS/
 ├── README.md # 项目总览（本文件）
 ├── LICENSE # 开源协议
 ├── .gitignore
@@ -49,21 +50,22 @@ ForMyLazyWife/
 ├── docs/ # 📚 文档中心
 │ ├── architecture.md # 系统架构图（Mermaid）
 │ ├── requirements.md # 需求跟踪表
-│ ├── hybrid-deployment.md # 混合部署总览
+│ ├── hybrid-deployment.md # HAOS虚拟机 + Docker混合部署总览
 │ ├── haos-npm-setup.md # HAOS 接入 Traefik 指南
-│ ├── port-mapping.md # 端口映射表
+│ ├── agent-trial-plan.md # AI Agent 并行试用评估计划
+│ ├── homebox-setup.md # Homebox 部署与集成指南
 │ └── changelog.md # 变更日志
 │
 ├── docker-compose/ # 🐳 服务编排
-│ ├── core-services.yml # OpenClaw, ntfy, PostgreSQL, New-API
+│ ├── core-services.yml # OpenClaw, Hermes Agent, ntfy, PostgreSQL, New-API
 │ ├── traefik.yml # Traefik + Traefik Manager
-│ ├── family-systems.yml # Donetick, Grocy, Tandoor, ezBookkeeping, TREK
-│ ├── media.yml # Immich, Navidrome
+│ ├── family-systems.yml # Donetick, Grocy, Tandoor, ezBookkeeping, TREK, Homebox
+│ ├── media.yml # Immich, Navidrome, Go Music DL, Go Novel DL
 │ ├── ai-models.yml # period-predictor
 │ ├── chat.yml # silly-tavern
 │ └── .env.example # 环境变量模板
 │
-├── openclaw/ # 🧠 AI 调度中枢
+├── openclaw/ # 🧠 AI 调度中枢（OpenClaw）
 │ ├── gateway-config.yaml
 │ └── skills/
 │  ├── home-assistant.yaml
@@ -71,7 +73,14 @@ ForMyLazyWife/
 │  ├── food-management.yaml
 │  ├── bookkeeping.yaml
 │  ├── health-query.yaml
-│  └── travel-planner.yaml
+│  ├── travel-planner.yaml
+│  ├── music-control.yaml
+│  ├── homebox.yaml
+│  └── laundry-reminder.yaml
+│
+├── hermes/ # 🧠 AI 调度中枢（Hermes Agent，评估中）
+│ └── skills/ # Hermes 技能配置目录
+│  └── README.md # 技能开发说明
 │
 ├── home-assistant/ # 🏡 智能家居配置
 │ ├── configuration.yaml
