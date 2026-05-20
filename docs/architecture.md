@@ -36,6 +36,7 @@ flowchart TB
         direction LR
         Tasks[家庭任务<br>Donetick]
         Food[食物管理<br>Grocy + Tandoor]
+        Assets[家庭资产<br>Homebox]
         Books[记账<br>ezBookkeeping]
         Media[多媒体<br>Go Music DL + Go Novel DL + Navidrome]
         Photos[照片备份<br>Immich]
@@ -62,6 +63,7 @@ flowchart TB
     Agent -->|技能调用| NewAPI
     NewAPI -->|负载均衡<br>成本控制| External_Models[DeepSeek / 通义千问 / Ollama]
     Agent -->|调用 API| Tasks
+    Agent -->|调用 API| Assets
     Agent -->|调用 API| Food
     Agent -->|调用 API| Books
     Agent -->|调用 API| Health
