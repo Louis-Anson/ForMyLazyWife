@@ -24,6 +24,7 @@
 | 家庭任务系统 | 菜谱录入与点餐 | 菜谱管理、膳食计划、根据食材推荐 | 未开发 | 高 | Tandoor Recipes | NAS Docker | 与 Grocy 库存联动；内网服务 |
 | 食物状态系统 | 库存管理 | 品类、数量、采购日期、保质期管理 | 未开发 | 高 | Grocy | NAS Docker | 支持条码扫描；自定义临期提醒；内网服务 |
 | 食物状态系统 | 烹饪建议 | 根据现有食材推荐可制作菜肴 | 未开发 | 高 | OpenClaw 调用 Grocy + Tandoor API | NAS Docker | 通过 API 网关转发，内网服务 |
+| 家庭资产管理 | 衣物/鞋帽/床上用品管理 | 记录购买时间、使用状态、清洗周期，支持特殊衣物（冲锋衣/滑雪服）维护提醒 | 未开发 | 高 | Homebox | NAS Docker | 通过 API 与 AI 调度中枢集成，支持多用户；镜像：sysadminsmedia/homebox |
 | 家用记账系统 | 收支记录与统计 | 收入/支出分类记录、图表分析、实时查询 | 未开发 | 高 | ezBookkeeping | NAS Docker | 内网服务；支持微信/支付宝账单导入 |
 | 家用记账系统 | 微信触发记账 | 通过微信消息自动添加记账条目 | 未开发 | 高 | OpenClaw + ezBookkeeping API | NAS Docker | 通过 API 网关转发 |
 | 智能家居中枢 | 设备统一接入与控制 | 接入空调、洗衣机、门锁、传感器等 | 未开发 | 高 | Home Assistant OS (虚拟机) | QNAP Virtualization Station | 桥接网络，独立 IP；通过 Traefik 代理并信任转发 |
